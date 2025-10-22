@@ -1,0 +1,20 @@
+<div class="chart-wrapper">
+  <div class="chart-header">
+    <div class="unit">Unit: {{ unit }}</div>
+  </div>
+
+  <div class="chart-container">
+    <canvas
+      baseChart
+      [type]="'line'"
+      [data]="lineData"
+      [options]="lineOptions"
+    ></canvas>
+  </div>
+
+  @if (lineData.datasets.length === 0) {
+  <div class="empty">
+    No readings to display.
+  </div>
+  }
+</div>

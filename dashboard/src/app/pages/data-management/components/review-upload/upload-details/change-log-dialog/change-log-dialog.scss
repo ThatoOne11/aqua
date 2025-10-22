@@ -1,0 +1,21 @@
+@use "sass:map";
+@use "@theme/theme-colors.scss" as theme;
+.content {
+  padding: 16px;
+}
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 20px;
+}
+.caution {
+  color: map.get(theme.$warning-palette, 500);
+}
+.row {
+  display: flex;
+  border-radius: 16px;
+  align-items: center;
+  padding: 2px 8px;
+  gap: 20px;
+}

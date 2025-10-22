@@ -1,0 +1,43 @@
+@if(loading()){
+<p>Loading...</p>
+} @if (!loading() && sites() && sites().length === 0) {
+<i>No sites present</i>
+} @else if(!loading() && sites() && sites().length > 0){ @for (site of sites();
+track site.id) {
+<div class="site-container">
+  <h3 class="site-header" (click)="toggleSite(site)">
+    <span class="toggle-icon">
+      {{ site.isExpanded ? "−" : "+" }}
+    </span>
+    {{ site.name }}
+  </h3>
+
+  <div class="user-list" [class.expanded]="site.isExpanded">
+    @for (mapping of site.user_site_mapping; track mapping.user_id) {
+    <mat-checkbox
+      (change)="onUserSiteChecked($event.checked, mapping.user.id, site.id)"
+    >
+      {{ mapping.user.display_name }}
+    </mat-checkbox>
+    }
+    <div class="site-actions">
+      <button
+        mat-flat-button
+        matButton="filled"
+        (click)="addUsersToSite(site.id)"
+        [disabled]="!isAddUserEnabled(site.id)"
+      >
+        Add User
+      </button>
+      <button
+        matButton="outlined"
+        (click)="deleteUsersFromSite(site.id)"
+        mat-flat-button
+        [disabled]="!isDeleteEnabled(site.id)"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+} }

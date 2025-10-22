@@ -1,0 +1,35 @@
+.table-container {
+  margin-top: 24px;
+  overflow-x: auto;
+  background-color: white;
+  padding: 24px;
+  border-radius: 16px;
+}
+
+.review-grid {
+  width: 100%;
+}
+
+.parameters-container {
+  z-index: 2;
+  position: relative;
+}
+
+.parameters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.parameter-chip {
+  border: 1px solid #6b6c75;
+  border-radius: 24px;
+  padding: 6px 16px;
+  color: #34363e;
+}
+
+.upload-info {
+  background-color: white;
+  padding: 24px;
+  border-radius: 16px;
+}

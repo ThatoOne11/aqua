@@ -1,0 +1,32 @@
+<div class="upload-info">
+  <app-page-title [title]="title"></app-page-title>
+  @if (coaDetails) {
+  <app-warnings
+    [coaId]="coaId"
+    [clientId]="clientId"
+    [clientName]="clientName"
+    (selectedUsersForSite)="selectedUsersForSiteEvent($event)"
+    [currentSelectedUsers]="currentSelectedUsers"
+  />
+  <app-upload-info [coaDetails]="coaDetails"></app-upload-info>
+  }
+  <div class="parameters-container">
+    <h1>Parameters</h1>
+    <div class="parameters">
+      @for (param of parameters; track param) {
+      <span class="parameter-chip">{{ param }}</span>
+      }
+    </div>
+  </div>
+</div>
+
+@if (coaUploadViewModel) {
+<div class="table-container">
+  <app-ag-grid
+    class="review-grid"
+    [columnDefinitions]="readingColDefs"
+    [rowData]="editedRowValues"
+    [onCellEditRequest]="onCellEditRequest"
+  ></app-ag-grid>
+</div>
+}

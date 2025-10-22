@@ -1,0 +1,67 @@
+<div class="review-content">
+  <div class="top-header space-between">
+    <div class="flex gap-20" (click)="previousStep()">
+      <div id="review-back-button">
+        <mat-icon class="material-symbols-outlined">arrow_back</mat-icon>
+      </div>
+      <span>{{ previousStepTitle() }}</span>
+    </div>
+    <div
+      class="flex gap-20"
+      (click)="nextStep()"
+      [class.disabled]="isProceedDisabled()"
+    >
+      @if (nextStepTitle()) {
+      <span>{{ nextStepTitle() }}</span>
+      <div id="review-forward-button">
+        <mat-icon class="material-symbols-outlined">arrow_forward</mat-icon>
+      </div>
+      }
+    </div>
+  </div>
+  @if (currentStep() === ReviewStepsEnum.UPLOAD) {
+  <app-upload-details
+    [title]="currentStepModel()?.title!"
+    [coaId]="coaId"
+    [error]="error"
+    [coaUploadViewModel]="coaDetails"
+    (editedReadingsChange)="onEditedReadings($event)"
+    (editedReadingsData)="onEditedReadingsData($event)"
+    (selectedUsersForSite)="selectedUsersForSiteEvent($event)"
+    [currentSelectedUsers]="selectedUsersForSite"
+  ></app-upload-details>
+  } @else if (currentStep() == ReviewStepsEnum.ALERTS) {
+  <app-review-alerts
+    title="{{ currentStepModel()?.title }}"
+    [coaId]="coaId"
+    [clientId]="coaDetails?.details?.client_id ?? ''"
+    [alerts]="alerts"
+    (alertsChangedEvent)="updateAlerts($event)"
+  ></app-review-alerts>
+  } @else if (currentStep() == ReviewStepsEnum.CONFIRM) {
+  <app-upload-confirmation
+    [coaDetails]="coaDetails!.details!"
+    title="{{ currentStepModel()?.title }}"
+    [editedReadings]="editedReadings"
+    [alerts]="alerts()"
+    [currentSelectedUsers]="selectedUsersForSite"
+  ></app-upload-confirmation>
+  }
+</div>
+
+<div class="sticky-bottom-bar">
+  <div class="button-container">
+    @for (item of actionButtons(); track $index) { @if (item.condition) {
+    <button
+      mat-flat-button
+      class="bottom-button"
+      [matButton]="item.buttonAppearance"
+      id="{{`${item.title}-action-button`}}"
+      (click)="executeOptionAction(item.action)"
+      [disabled]="item.disabled"
+    >
+      {{ item.title }}
+    </button>
+    } }
+  </div>
+</div>

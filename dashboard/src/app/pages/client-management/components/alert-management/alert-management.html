@@ -1,0 +1,104 @@
+<div
+  [formGroup]="alertFormGroup"
+  class="alert-container"
+  id="client-management-settings-alert-container"
+>
+  <div class="alert-details">
+    <mat-form-field appearance="outline">
+      <mat-label>Alert Type</mat-label>
+      <input
+        type="text"
+        matInput
+        [matAutocomplete]="resultTypeAuto"
+        formControlName="resultType"
+        id="client-management-settings-alert-type-input"
+      />
+
+      <mat-autocomplete
+        #resultTypeAuto="matAutocomplete"
+        [displayWith]="getResultTypeDisplayName"
+        (optionSelected)="onResultTypeSelected($event.option.value)"
+        id="client-management-settings-alert-type-autocomplete"
+      >
+        @for (result of filteredResultTypes; track result.id) {
+        <mat-option
+          [value]="result"
+          id="client-management-settings-alert-type-option-{{ result.id }}"
+        >
+          {{ result.display_name }}
+        </mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Condition</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="condition"
+        [matAutocomplete]="conditionAuto"
+        id="client-management-settings-alert-condition-input"
+      />
+      <mat-autocomplete
+        #conditionAuto="matAutocomplete"
+        id="client-management-settings-alert-condition-autocomplete"
+      >
+        @for (option of conditionOptions; track option.value) {
+        <mat-option
+          [value]="option.value"
+          id="client-management-settings-alert-condition-option-{{
+            option.value
+          }}"
+        >
+          {{ option.viewValue }}
+        </mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Value</mat-label>
+      <input
+        formControlName="value"
+        type="number"
+        matInput
+        name="value"
+        required
+        id="client-management-settings-alert-value-input"
+      />
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button
+      mat-flat-button
+      (click)="addAlert()"
+      [disabled]="alertFormGroup.invalid"
+      id="client-management-settings-add-alert-button"
+    >
+      <mat-icon
+        id="client-management-settings-add-alert-icon"
+        class="material-symbols-outlined filled-symbol"
+        >add_circle</mat-icon
+      >
+      Add Alert
+    </button>
+  </div>
+
+  <div
+    class="current-alert-container"
+    id="client-management-settings-current-alert-container"
+  >
+    <div
+      class="grid-of-alerts"
+      id="client-management-settings-current-alert-grid"
+    >
+      <app-ag-grid
+        [columnDefinitions]="currentAlertColDefs"
+        [rowData]="alertsForClient()"
+        id="client-management-settings-current-alert-grid-component"
+      ></app-ag-grid>
+    </div>
+  </div>
+</div>

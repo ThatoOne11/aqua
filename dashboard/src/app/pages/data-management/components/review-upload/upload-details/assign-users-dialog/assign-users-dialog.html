@@ -1,0 +1,86 @@
+<div class="content">
+  <h2>{{ data.siteName }} Alert Recipients</h2>
+  <p>
+    Select or add new users to receive alerts for {{ data.siteName }},
+    {{ data.clientName }}
+  </p>
+  <div class="select-users-container">
+    <b>Select client users</b>
+    <mat-form-field id="user-filter" appearance="outline">
+      <mat-label>Select users to add to the site</mat-label>
+      <mat-select id="user-select" multiple [formControl]="usersControl">
+        <mat-select-trigger>
+          @if (usersControl.value && usersControl.value.length > 0) {
+          {{ formatUserNames(usersControl.value) }}
+          }
+        </mat-select-trigger>
+        @for (s of filteredUsers(); track s.id) {
+        <mat-option id="user-option-{{ s.id }}" [value]="s">
+          <span>{{ s.display_name }}</span>
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="add-users-container">
+    <b>Add new user</b>
+    <div [formGroup]="userFormGroup" class="add-users-container-content">
+      <mat-form-field appearance="outline">
+        <mat-label>Full name</mat-label>
+        <input
+          matInput
+          formControlName="display_name"
+          name="display_name"
+          required
+        />@if (userFormGroup.get('display_name')?.hasError('required')) {
+        <mat-error>User name is required</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email Address</mat-label>
+        <input matInput formControlName="email" name="email" required />
+        @if (userFormGroup.get('email')?.hasError('required')) {
+        <mat-error>Email is required</mat-error>
+        } @if (userFormGroup.get('email')?.hasError('email') &&
+        !userFormGroup.get('email')?.hasError('required')) {
+        <mat-error>Please enter a valid email address</mat-error>
+        }
+      </mat-form-field>
+
+      <button
+        class="add-user-button"
+        (click)="addNewUser()"
+        [disabled]="userFormGroup.invalid"
+        mat-flat-button
+      >
+        <mat-icon class="material-symbols-outlined">add_circle</mat-icon>
+        Add new user
+      </button>
+    </div>
+    @if (errorMessage()){
+    <div>
+      {{ errorMessage() }}
+    </div>
+    }
+  </div>
+  <mat-chip-set class="selected-users-container">
+    @for (user of users(); track $index) {
+    <mat-chip
+      [matTooltip]="user.email"
+      [removable]="true"
+      (removed)="removeUser(user)"
+      >{{ user.display_name
+      }}<mat-icon matChipRemove class="material-symbols-outlined"
+        >close</mat-icon
+      ></mat-chip
+    >
+    }
+  </mat-chip-set>
+  <div class="dialog-actions">
+    <button class="cancel-button" (click)="close()" mat-flat-button>
+      Cancel
+    </button>
+    <button (click)="save()" mat-flat-button>Confirm</button>
+  </div>
+</div>

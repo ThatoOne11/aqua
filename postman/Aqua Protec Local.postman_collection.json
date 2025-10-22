@@ -1,0 +1,80 @@
+{
+  "info": {
+    "_postman_id": "ea355905-52c5-4813-8894-38031687d06d",
+    "name": "Aqua Protec Local",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "14261484"
+  },
+  "item": [
+    {
+      "name": "Aqua Protec",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apikey",
+            "value": "",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"duvenagetyron@gmail.com\",\r\n  \"password\": \"Warhead209\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:54321/auth/v1/token?grant_type=password",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "54321",
+          "path": ["auth", "v1", "token"],
+          "query": [
+            {
+              "key": "grant_type",
+              "value": "password"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register admin user",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTc1Mjc4MDQ5NH1dLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwiYXVkIjpbImF1dGhlbnRpY2F0ZWQiXSwiZW1haWwiOiJkdXZlbmFnZXR5cm9uQGdtYWlsLmNvbSIsImV4cCI6MTc1Mjc4NDA5NCwiaWF0IjoxNzUyNzgwNDk0LCJpc19hbm9ueW1vdXMiOmZhbHNlLCJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjU0MzIxL2F1dGgvdjEiLCJwaG9uZSI6IiIsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwic2Vzc2lvbl9pZCI6ImRmMzM1MGEzLTRjOWQtNDJkMC04NzJkLWJkY2EyYTdhYTUwOCIsInN1YiI6IjYwMGYwMDRiLWYxN2YtNGMxNS05MDk1LWFiODhjODkzYjc4YiIsInVzZXJfbWV0YWRhdGEiOnsiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJ1c2VyX3JvbGUiOiJzdXBlci1hZG1pbiJ9.gd8r3v3TvDE1bdd5C8TyR3A5DhXG1wU_bFiqoOAPOF8",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"tyronduvenag36@gmail.com\",\r\n    \"displayName\": \"Tyron Test user\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:54321/functions/v1/register-admin-user",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "54321",
+          "path": ["functions", "v1", "register-admin-user"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

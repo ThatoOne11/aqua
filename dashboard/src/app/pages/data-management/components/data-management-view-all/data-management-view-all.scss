@@ -1,0 +1,63 @@
+@use "../../../../styles/variables.scss" as var;
+
+$top-row-height: 560px;
+
+.page-container {
+  // Add padding and set up the flexbox layout with a gap
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100px); // Adjusted for navbar and padding
+  gap: 16px;
+}
+
+.top-row {
+  display: flex;
+  gap: 16px; // Adds space between the top containers
+}
+
+.bottom-row {
+  display: flex;
+  flex: 1;
+}
+
+.container {
+  // Set the white background and other styles for all containers
+  background-color: white;
+  border-radius: 8px; // Rounded corners
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.top-left,
+.top-right {
+  flex: 1; // Each container in the top row takes up 50% of the width
+  min-height: $top-row-height;
+}
+
+.bottom {
+  flex: 1; // The bottom container takes up 100% of the width
+}
+
+// Responsive styles for tablets
+@media (max-width: var.$breakpoint-tablet) {
+  .top-row {
+    flex-direction: column;
+  }
+
+  .top-right-placeholder {
+    display: none; /* removes from layout */
+  }
+}
+
+.review-button-container {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

@@ -1,0 +1,32 @@
+<div class="content">
+  <h2>Change Log</h2>
+  <p>
+    Current alerts will be discarded and regenerated due to changes. Please
+    confirm you would like to proceed
+  </p>
+  <mat-dialog-content>
+    <div class="items">
+      @for (entry of editedReadings | keyvalue; track entry.key) { @for (edit of
+      entry.value; track edit.rowNumber) {
+      <div class="row">
+        <span class="icon-wrap caution" aria-hidden="true">
+          <mat-icon class="material-symbols-outlined">warning</mat-icon>
+        </span>
+        <span class="label"
+          >Row {{ edit.rowNumber }}: <i>{{ edit.field }}</i> changed from "{{
+            edit.oldValue
+          }}" to "{{ edit.newValue }}"
+        </span>
+      </div>
+      } } @if(isEditedReadingsEmpty()){
+      <i>No changes</i>
+      }
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-flat-button class="cancel-button" (click)="onCancel()">
+      Cancel
+    </button>
+    <button mat-flat-button color="warn" (click)="onConfirm()">Confirm</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,30 @@
+<div class="upload-details">
+  <div class="display-section">
+    <div class="item">
+      <span class="heading">Uploaded by:</span>
+      <span>{{ coaDetails.coa_username }}</span>
+    </div>
+    <div class="item">
+      <span class="heading">Client name:</span>
+      <span>{{ coaDetails.client_name }}</span>
+    </div>
+    <div class="item">
+      <span class="heading">Date of reading:</span>
+      <span>{{ formatReadingDate(coaDetails.coa_reading_date) }}</span>
+    </div>
+  </div>
+  <div class="display-section">
+    <div class="item">
+      <span class="heading">Uploaded on:</span>
+      <span>{{ todayFormatted }}</span>
+    </div>
+    <div class="item">
+      <span class="heading">Site name:</span>
+      <span>{{ coaDetails.site_name }}</span>
+    </div>
+    <div class="item">
+      <span class="heading">Number of readings:</span>
+      <span>{{ coaDetails.readings_count }}</span>
+    </div>
+  </div>
+</div>

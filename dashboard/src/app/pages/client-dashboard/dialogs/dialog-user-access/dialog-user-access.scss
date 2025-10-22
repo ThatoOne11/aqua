@@ -1,0 +1,47 @@
+@use "sass:map";
+@use "@theme/theme-colors.scss" as theme;
+
+@use "../../../../styles/variables.scss" as var;
+
+:host {
+  display: block;
+  background: var.$background-gradient;
+  border-radius: 16px;
+}
+
+.list-wrapper {
+  background-color: white;
+  padding-right: 8px;
+}
+
+mat-list {
+  margin: 0;
+  padding: 0;
+  max-height: 400px;
+  overflow-y: auto;
+  position: relative;
+  box-sizing: border-box;
+
+  /* Scrollbar styling */
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: map.get(theme.$neutral-palette, 80);
+  }
+
+  &::-webkit-scrollbar-track {
+    margin: 12px 0 12px 0;
+  }
+}
+
+.cancel-button {
+  color: black;
+  border: solid 1px black;
+  border-radius: 16px;
+  padding: 16px 24px;
+  width: 90px;
+  height: 56px;
+  gap: 8px;
+}

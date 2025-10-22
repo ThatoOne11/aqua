@@ -1,0 +1,76 @@
+<div class="container" id="client-tile-container">
+  <div class="client-tile-container">
+    <div
+      class="alert"
+      [class.danger]="numberOfAlerts > 0"
+      [class.safe]="numberOfAlerts <= 0"
+      id="client-tile-alert"
+    >
+      {{ numberOfAlerts }}
+    </div>
+
+    <div class="content" id="client-tile-content">
+      <div class="client-name" id="client-tile-name">{{ clientName }}</div>
+      <div class="client-info" id="client-tile-info">
+        {{ numberOfUsers }} users | {{ numberOfSites }} Sites
+      </div>
+    </div>
+  </div>
+
+  <button
+    matIconButton
+    [matMenuTriggerFor]="menu"
+    class="action-container"
+    (click)="$event.stopPropagation()"
+    id="client-tile-menu-trigger"
+  >
+    <mat-icon id="client-tile-menu-icon" class="material-symbols-outlined"
+      >more_vert</mat-icon
+    >
+  </button>
+
+  <mat-menu #menu="matMenu" id="client-tile-menu">
+    <button mat-menu-item (click)="onPinToggle()" id="client-tile-pin-button">
+      @if (isPinned) {
+      <mat-icon
+        id="client-tile-unpin-icon"
+        class="material-symbols-outlined filled-symbol"
+        >cancel</mat-icon
+      >
+      } @else {
+      <mat-icon
+        id="client-tile-pin-icon"
+        class="material-symbols-outlined filled-symbol"
+        >push_pin</mat-icon
+      >
+      }
+      <span id="client-tile-pin-label">{{ isPinned ? "Unpin" : "Pin" }}</span>
+    </button>
+
+    <button
+      mat-menu-item
+      (click)="navigateToClientSettings()"
+      id="client-tile-settings-button"
+    >
+      <mat-icon
+        id="client-tile-settings-icon"
+        class="material-symbols-outlined filled-symbol"
+        >settings</mat-icon
+      >
+      <span id="client-tile-settings-label">Settings</span>
+    </button>
+
+    <button
+      mat-menu-item
+      id="client-tile-archive-button"
+      (click)="archiveClient()"
+    >
+      <mat-icon
+        id="client-tile-archive-icon"
+        class="material-symbols-outlined filled-symbol"
+        >archive</mat-icon
+      >
+      <span id="client-tile-archive-label">Archive</span>
+    </button>
+  </mat-menu>
+</div>

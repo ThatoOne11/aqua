@@ -1,0 +1,13 @@
+<app-page-title title="{{ title }}" />
+<p>Please confirm the following is correct before confirming this upload</p>
+<h2>Upload details</h2>
+<app-upload-details-summary
+  [coaDetails]="coaDetails"
+></app-upload-details-summary>
+<app-change-log [editedReadings]="editedReadings"></app-change-log>
+<hr />
+
+<app-upload-alert-details-summary
+  [alerts]="alerts"
+  [currentSelectedUsers]="currentSelectedUsers"
+></app-upload-alert-details-summary>

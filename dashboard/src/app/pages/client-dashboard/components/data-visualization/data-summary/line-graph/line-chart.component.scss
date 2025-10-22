@@ -1,0 +1,31 @@
+.chart-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+.unit {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.chart-container {
+  position: relative;
+  height: 420px; /* adjust as needed */
+}
+
+.empty {
+  font-size: 14px;
+  opacity: 0.7;
+}

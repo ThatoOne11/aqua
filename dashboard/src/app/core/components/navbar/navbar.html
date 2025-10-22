@@ -1,0 +1,51 @@
+<div class="navbar-container" id="navbar-container">
+  @if(showNavbar){
+  <div class="header" id="navbar-header">
+    <div class="header-item-container" id="navbar-logo-container">
+      <mat-icon
+        (click)="navigateTo(landingPageRoute)"
+        class="logo"
+        svgIcon="logo"
+        id="navbar-logo"
+      ></mat-icon>
+    </div>
+
+    @if(shouldShowNavOptions()) {
+    <div class="header-item-container" id="navbar-links-container">
+      @if(allowedRoutes.includes(routePaths.DATA_MANAGEMENT)){
+      <span
+        class="navbar-link"
+        (click)="navigateTo('data-management')"
+        [class.active]="isDataManagementRoute"
+        id="navbar-link-data-management"
+      >
+        Data Management
+      </span>
+      } @if(allowedRoutes.includes(routePaths.CLIENT_MANAGEMENT)){
+      <span
+        class="navbar-link"
+        (click)="navigateTo('client-management')"
+        [class.active]="isClientManagementRoute"
+        id="navbar-link-client-management"
+      >
+        Client Management
+      </span>
+      }
+    </div>
+    }
+
+    <div class="header-item-container" id="navbar-user-menu-container">
+      <button mat-button (click)="goToAccount()" id="navbar-user-menu-button">
+        <div class="user-label" id="navbar-user-label">
+          <span id="navbar-user-role">{{ displayName }}</span>
+          <mat-icon
+            id="navbar-user-icon"
+            class="material-symbols-outlined filled-symbol"
+            >account_circle</mat-icon
+          >
+        </div>
+      </button>
+    </div>
+  </div>
+  }
+</div>

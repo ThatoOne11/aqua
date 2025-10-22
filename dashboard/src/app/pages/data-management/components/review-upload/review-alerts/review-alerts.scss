@@ -1,0 +1,62 @@
+@use "sass:map";
+@use "@theme/theme-colors.scss" as theme;
+
+.error {
+  background: map.get(theme.$danger-palette, 500);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 360px); /* Always 3 columns */
+  justify-content: space-between; /* Centers the grid with automatic side padding */
+  gap: 20px; /* Optional: spacing between items */
+}
+
+.grid-item {
+  width: 360px;
+}
+
+.custom-card {
+  border-radius: 12px;
+  &.ignored {
+    filter: opacity(30%);
+  }
+}
+
+.custom-card .mat-mdc-card-header {
+  background: map.get(theme.$danger-palette, 500);
+  color: white;
+  border-radius: 12px 12px 0px 0px;
+}
+
+.custom-card .mat-mdc-card-title {
+  color: #fff;
+  padding-bottom: 8px;
+}
+
+.custom-card .mat-mdc-card-subtitle {
+  color: #fff;
+  font-weight: 400;
+  padding-bottom: 12px;
+}
+
+.custom-card .mat-mdc-card-content {
+  background-color: white;
+  border-radius: 0px 0px 12px 12px;
+  border: 1px black;
+  padding: 16px 16px 0px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.custom-card .mat-mdc-card-actions {
+  background-color: white;
+  border-radius: 0px 0px 12px 12px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+mat-form-field {
+  width: 100%;
+}

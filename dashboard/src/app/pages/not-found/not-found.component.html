@@ -1,0 +1,28 @@
+<div class="app-global-content">
+  <div class="page">
+    <div class="content">
+      <div id="not-found-spacer"></div>
+
+      <mat-icon
+        class="icon-styles material-symbols-outlined"
+        id="not-found-icon"
+        >error</mat-icon
+      >
+
+      <h1 id="not-found-heading">404. Page not found</h1>
+
+      <p class="description" id="not-found-description">
+        The page you're looking for doesn't exist or has been moved.
+      </p>
+
+      <button
+        class="full-width-button"
+        mat-flat-button
+        (click)="goHome()"
+        id="not-found-return-button"
+      >
+        Return to dashboard
+      </button>
+    </div>
+  </div>
+</div>

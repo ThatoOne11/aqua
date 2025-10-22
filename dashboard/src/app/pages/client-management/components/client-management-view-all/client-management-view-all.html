@@ -1,0 +1,77 @@
+<app-page-title
+  [title]="'Client Management'"
+  id="client-management-title"
+></app-page-title>
+
+<mat-form-field appearance="fill" class="search-input with-border">
+  <input
+    matInput
+    name="searchClient"
+    placeholder="Search client"
+    id="client-management-search-input"
+    [(ngModel)]="searchQuery"
+  />
+  <mat-icon
+    matSuffix
+    id="client-management-search-icon"
+    class="material-symbols-outlined"
+    >search</mat-icon
+  >
+</mat-form-field>
+
+<button
+  mat-flat-button
+  (click)="navigateToAddClient()"
+  id="client-management-add-client-button"
+>
+  <mat-icon
+    matSuffix
+    id="client-management-add-client-icon"
+    class="material-symbols-outlined"
+    >add</mat-icon
+  >
+  New Client
+</button>
+
+@if (!loading()) { @if (filteredClients().length > 0) { @if
+(filteredPinnedClients().length > 0) {
+<h2 class="sub-heading" id="client-management-pinned-heading">
+  Pinned clients
+</h2>
+<div class="all-clients-container" id="client-management-pinned-container">
+  @for (client of filteredPinnedClients(); track client.clientId) {
+  <app-client-tile
+    (click)="navigateToViewClient(client.clientId)"
+    [numberOfAlerts]="client.numberOfAlerts"
+    [numberOfUsers]="client.numberOfUsers"
+    [numberOfSites]="client.numberOfSites"
+    [clientName]="client.clientName"
+    [clientId]="client.clientId"
+    [isPinned]="client.isPinned"
+    (togglePinned)="togglePinClient($event)"
+    id="{{`client-management-tile-${client.clientId}`}}"
+  ></app-client-tile>
+  }
+</div>
+}
+<h2 class="sub-heading" id="client-management-all-heading">All clients</h2>
+<div class="all-clients-container" id="client-management-all-container">
+  @for (client of filteredClients(); track client.clientId) {
+  <app-client-tile
+    (click)="navigateToViewClient(client.clientId)"
+    [numberOfAlerts]="client.numberOfAlerts"
+    [numberOfUsers]="client.numberOfUsers"
+    [numberOfSites]="client.numberOfSites"
+    [clientName]="client.clientName"
+    [clientId]="client.clientId"
+    [isPinned]="client.isPinned"
+    (togglePinned)="togglePinClient($event)"
+    id="{{`client-management-tile-${client.clientId}`}}"
+  ></app-client-tile>
+  }
+</div>
+} @else {
+<p id="client-management-no-clients-message">No clients found.</p>
+} } @else {
+<p id="client-management-loading-message">Loading...</p>
+}

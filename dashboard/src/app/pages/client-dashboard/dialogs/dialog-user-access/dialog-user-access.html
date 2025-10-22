@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{ data.clientName }}</h2>
+<mat-dialog-content>
+  <h3>Client users</h3>
+  <div class="list-wrapper">
+    <mat-list>
+      @for (user of clientUsers(); track $index) {
+      <mat-list-item>{{ user.display_name }}</mat-list-item>
+      }
+    </mat-list>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close class="cancel-button">Close</button>
+</mat-dialog-actions>

@@ -1,0 +1,32 @@
+<div class="page">
+  <div class="content">
+    <div class="logo-container">
+      <mat-icon class="logo" svgIcon="logo"></mat-icon>
+    </div>
+    <mat-icon class="check material-symbols-outlined">check_circle</mat-icon>
+
+    <app-page-title [title]="title()"></app-page-title>
+    <form [formGroup]="emailFormGroup" class="full-width">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Confirm email address</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          type="email"
+          name="email"
+          id="email"
+          required
+        />
+      </mat-form-field>
+    </form>
+    <a
+      class="reset-button"
+      mat-flat-button
+      [disabled]="emailFormGroup.invalid"
+      href="{{ passthroughLink() }}"
+      id="passthrough-proceed"
+    >
+      Proceed
+    </a>
+  </div>
+</div>

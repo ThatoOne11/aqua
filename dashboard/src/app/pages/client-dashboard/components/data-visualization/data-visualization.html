@@ -1,0 +1,59 @@
+<div class="page-container">
+  <div class="top-row">
+    <app-filters
+      [options]="options()"
+      [clientId]="clientId()"
+      (filterChange)="onFilterChange($event)"
+      [initialParams]="initialFilterParams()"
+    ></app-filters>
+  </div>
+
+  @if (error()) {
+  <div class="full-height-container">
+    <p class="error-message">{{ error() }}</p>
+  </div>
+  } @else if (hasData()) {
+  <div class="middle-row">
+    <div class="container middle-left">
+      <app-bar-chart [monthlyData]="dashboardData()?.monthly ?? null" />
+    </div>
+    <div class="container middle-right">
+      <app-alerts-summary [results]="dashboardData()?.parameters ?? null" />
+    </div>
+  </div>
+  } @else {
+  <div class="full-height-container">
+    <p class="no-data-message">No data available for the selected filters.</p>
+  </div>
+  }
+
+  <div class="bottom-row">
+    <div class="container bottom">
+      <section>
+        @if (groupedCharts().length) { @for (g of groupedCharts(); track g.id) {
+        <h3 class="mb-2">{{ g.title }}</h3>
+
+        <app-reading-results-line-chart
+          [rows]="g.rows"
+          [showPoints]="true"
+          [beginAtZero]="true"
+        >
+        </app-reading-results-line-chart>
+
+        <div class="my-6"></div>
+        } } @else {
+        <div class="empty-container">
+          <div class="icon-wrapper">
+            <mat-icon class="empty-icon material-symbols-outlined"
+              >filter_list</mat-icon
+            >
+          </div>
+          <p class="empty-text">
+            Please select a single outlet to view the line charts.
+          </p>
+        </div>
+        }
+      </section>
+    </div>
+  </div>
+</div>

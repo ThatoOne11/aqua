@@ -1,0 +1,77 @@
+<div class="page">
+  <div class="content">
+    <div class="logo-container">
+      <mat-icon class="logo" svgIcon="logo"></mat-icon>
+    </div>
+
+    <h1 class="main-heading">Welcome back</h1>
+
+    <form [formGroup]="loginFormGroup" class="login-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          name="email"
+          id="login-email-input"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field class="password-field" appearance="outline">
+        <mat-label>Enter your password</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          id="login-password-input"
+          [type]="hide() ? 'password' : 'text'"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="clickEvent($event)"
+          id="login-hide-password-button"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+        >
+          <mat-icon class="material-symbols-outlined filled-symbol">{{
+            hide() ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <a
+        class="forgot-password"
+        (click)="requestPasswordReset()"
+        id="login-forgot-password-link"
+      >
+        Forgot my password
+      </a>
+
+      <button
+        class="continue-button"
+        mat-flat-button
+        type="submit"
+        id="login-submit-button"
+        (click)="onSubmit()"
+        [disabled]="loginFormGroup.invalid"
+      >
+        Continue
+      </button>
+
+      <div class="status-message" id="login-status-message">
+        @if (resetPasswordMessage()) {
+        <div [class.error-text]="isError()">
+          <i>{{ resetPasswordMessage() }}</i>
+        </div>
+        }
+      </div>
+    </form>
+
+    <p class="legal-text">
+      By clicking “Continue” you agree to our
+      <a href="#">User Terms of Service</a> and <a href="#">Privacy Policy</a>.
+    </p>
+  </div>
+</div>

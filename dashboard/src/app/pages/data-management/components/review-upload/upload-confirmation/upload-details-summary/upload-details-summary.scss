@@ -1,0 +1,21 @@
+.upload-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.display-section {
+  flex: 1 1 45%;
+  min-width: 500px;
+}
+
+.item {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  display: flex;
+}
+
+.heading {
+  color: #929090;
+  min-width: 180px;
+}

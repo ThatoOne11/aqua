@@ -1,0 +1,21 @@
+<div class="user-access-bar">
+  <div class="left-group">
+    @if (!isClient()) {
+    <div class="back-button" (click)="navigateToViewClients()">
+      <mat-icon class="material-symbols-outlined">arrow_back</mat-icon>
+    </div>
+    }
+    <span>
+      {{ clientName() }}
+    </span>
+  </div>
+
+  <div class="right-group">
+    <button mat-flat-button (click)="userBarAction()">
+      <mat-icon matSuffix class="material-symbols-outlined filled-symbol">
+        @if (buttonLabel() === 'User Access') { group } @else { settings }
+      </mat-icon>
+      {{ buttonLabel() }}
+    </button>
+  </div>
+</div>

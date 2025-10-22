@@ -1,0 +1,51 @@
+<h2 mat-dialog-title id="dashboard-guide-title">Dashboard Guide</h2>
+
+<mat-dialog-content id="dashboard-guide-content">
+  <p id="dashboard-guide-subheading" class="sub-heading">
+    To get the most out of your dashboard, follow these steps:
+  </p>
+
+  <h3 id="dashboard-guide-step1-title">1. Select a Date Range</h3>
+  <p id="dashboard-guide-step1-text">
+    Choose a specific time period or pick a single day to view trends within
+    that range.
+  </p>
+
+  <h3 id="dashboard-guide-step2-title">2. Use Filters for Precision</h3>
+  <p id="dashboard-guide-step2-text">
+    Filters allow you to drill down into the details. If you multi-select sites,
+    you won’t be able to use filters for Floor, Area, Location, or Outlet
+    Type—these require a single site selection.
+  </p>
+
+  <h3 id="dashboard-guide-step3-title">3. Filters and Parameters</h3>
+  <ul id="dashboard-guide-step3-list" class="nested-list">
+    <li id="dashboard-guide-step3-item1">
+      Outlet Type: This filter will only become active once you select at least
+      one site.
+    </li>
+    <ul id="dashboard-guide-step3-innerlist" class="nested-inner-list">
+      <li id="dashboard-guide-step3-inner1">
+        Single Parameter Graphs: These will only appear when you select a single
+        outlet.
+      </li>
+      <li id="dashboard-guide-step3-inner2">
+        Multi-site Selection: If you choose multiple outlet sites, the single
+        parameter graphs will be hidden, but you’ll be able to compare passed
+        and failed results across sites.
+      </li>
+    </ul>
+  </ul>
+</mat-dialog-content>
+
+<mat-dialog-actions id="dashboard-guide-actions">
+  <button
+    id="dashboard-guide-close-btn"
+    mat-button
+    mat-dialog-close
+    matButton="outlined"
+    class="cancel-button"
+  >
+    Close
+  </button>
+</mat-dialog-actions>

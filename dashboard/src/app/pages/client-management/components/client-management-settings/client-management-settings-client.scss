@@ -1,0 +1,67 @@
+.tabs {
+  color: white;
+  background-color: #213367;
+  padding: 24px;
+  display: inline-flex;
+  gap: 48px;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  div {
+    cursor: pointer;
+    &.active {
+      text-decoration: underline;
+      text-underline-offset: 24px;
+      text-decoration-thickness: 4px;
+    }
+  }
+}
+.back-button {
+  cursor: pointer;
+}
+
+.content {
+  background-color: white;
+  padding: 24px;
+  padding-top: 48px;
+  border-top-right-radius: 28px;
+  border-bottom-right-radius: 28px;
+  border-bottom-left-radius: 28px;
+}
+
+.client-and-user-details-container {
+  display: flex;
+  flex-direction: column;
+  .channel-name-container {
+    mat-form-field {
+      width: 100%;
+    }
+  }
+  .client-user-details-container {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    mat-form-field {
+      width: 100%;
+    }
+    button {
+      display: flex;
+      min-width: 155px;
+      margin-bottom: 24px;
+      mat-icon {
+        font-size: 17px;
+      }
+    }
+  }
+}
+
+.client-actions {
+  padding-top: 48px;
+  display: flex;
+  gap: 12px;
+  flex-direction: row-reverse;
+  .cancel-button {
+    background-color: white;
+    color: black;
+    border: solid 1px black;
+  }
+}

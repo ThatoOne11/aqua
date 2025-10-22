@@ -1,0 +1,184 @@
+<app-page-title
+  [title]="'Client Management'"
+  id="client-management-settings-title"
+></app-page-title>
+
+<div class="top-header">
+  <div
+    class="back-button"
+    (click)="navigateToViewClients()"
+    id="client-management-settings-back-button"
+  >
+    <mat-icon
+      id="client-management-settings-back-icon"
+      class="material-symbols-outlined"
+      >arrow_back</mat-icon
+    >
+  </div>
+  <span id="client-management-settings-mode">Back</span>
+</div>
+
+<div class="tabs">
+  <div
+    [class.active]="isClientAndUserDetails"
+    (click)="showClientAndUserDetails()"
+    id="client-management-settings-tab-client-user-details"
+  >
+    Client and User Details
+  </div>
+  @if(isEditClient){
+  <div
+    [class.active]="isSiteDetails"
+    (click)="showSiteDetails()"
+    id="client-management-settings-tab-site-details"
+  >
+    Site Details
+  </div>
+  }
+  <div
+    [class.active]="isAlertSettings"
+    (click)="showAlertSettings()"
+    id="client-management-settings-tab-alert-settings"
+  >
+    Alert Settings
+  </div>
+</div>
+
+<div
+  [formGroup]="clientFormGroup"
+  class="content"
+  id="client-management-settings-form"
+>
+  @if(isClientAndUserDetails) {
+  <div
+    class="client-and-user-details-container"
+    id="client-management-settings-client-user-container"
+  >
+    <div class="channel-name-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Channel name/Organisation</mat-label>
+        <input
+          matInput
+          formControlName="channel"
+          name="channel"
+          required
+          id="client-management-settings-channel-input"
+        />
+      </mat-form-field>
+    </div>
+
+    <h3 id="client-management-settings-client-user-heading">
+      Client User Details
+    </h3>
+    <div
+      [formGroup]="userFormGroup"
+      class="client-user-details-container"
+      id="client-management-settings-user-form"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Full name</mat-label>
+        <input
+          matInput
+          formControlName="displayName"
+          name="displayName"
+          required
+          id="client-management-settings-displayname-input"
+        />@if (userFormGroup.get('displayName')?.hasError('required')) {
+        <mat-error>User name is required</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email Address</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          name="email"
+          required
+          id="client-management-settings-email-input"
+        />
+        @if (userFormGroup.get('email')?.hasError('required')) {
+        <mat-error>Email is required</mat-error>
+        } @if (userFormGroup.get('email')?.hasError('email') &&
+        !userFormGroup.get('email')?.hasError('required')) {
+        <mat-error>Please enter a valid email address</mat-error>
+        }
+      </mat-form-field>
+
+      <button
+        class="add-user-button"
+        (click)="addUser()"
+        [disabled]="userFormGroup.invalid"
+        mat-flat-button
+        id="client-management-settings-add-user-button"
+      >
+        <mat-icon
+          id="client-management-settings-add-user-icon"
+          class="material-symbols-outlined filled-symbol"
+          >add_circle</mat-icon
+        >
+        Add new user
+      </button>
+    </div>
+    @if (isEmailAlreadyPresent) {
+    <mat-error>This email already exists</mat-error>
+    }
+    <div
+      class="current-users-container"
+      id="client-management-settings-current-users-container"
+    >
+      <div
+        class="grid-of-users"
+        id="client-management-settings-current-users-grid"
+      >
+        <app-ag-grid
+          [columnDefinitions]="currentClientColDefs"
+          [rowData]="currentUserRowData()"
+          id="client-management-settings-current-users-grid-component"
+        ></app-ag-grid>
+      </div>
+    </div>
+  </div>
+  } @if(isAlertSettings){
+  <app-alert-management
+    [alertsForClient]="currentAlertRowData"
+  ></app-alert-management>
+
+  } @if(isSiteDetails){
+  <app-site-management
+    [clientId]="clientId"
+    [clientUsers]="currentUserRowData()"
+  ></app-site-management>
+  }
+
+  <div class="client-actions" id="client-management-settings-actions">
+    @if(!isEditClient){
+    <button
+      mat-flat-button
+      [disabled]="clientFormGroup.invalid || isSubmitting()"
+      (click)="addClient()"
+      id="client-management-settings-add-client-button"
+    >
+      Add Client
+    </button>
+    } @else {
+    <button
+      mat-flat-button
+      [disabled]="clientFormGroup.invalid || isSubmitting()"
+      (click)="saveClient()"
+      id="client-management-settings-save-client-button"
+    >
+      Save Changes
+    </button>
+    }
+
+    <button
+      class="cancel-button"
+      (click)="navigateToViewClients()"
+      mat-flat-button
+      id="client-management-settings-cancel-button"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

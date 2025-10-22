@@ -1,0 +1,43 @@
+.site-actions {
+  padding-top: 16px;
+  display: flex;
+  gap: 12px;
+  margin-left: 24px;
+  button {
+    border-radius: 24px;
+  }
+  .delete-button {
+    background-color: white;
+    color: black;
+    border: solid 1px black;
+  }
+}
+.user-list {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+  padding: 0 0;
+  display: flex;
+  flex-direction: column;
+
+  &.expanded {
+    max-height: 500px;
+    opacity: 1;
+    padding: 8px 0;
+  }
+}
+
+.site-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.toggle-icon {
+  width: 20px;
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 8px;
+}

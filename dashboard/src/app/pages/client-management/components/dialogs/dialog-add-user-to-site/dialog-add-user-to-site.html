@@ -1,0 +1,29 @@
+<div class="container">
+  <h3>{{ data.siteName }}</h3>
+  <div class="content">
+    <mat-form-field id="user-filter" appearance="outline">
+      <mat-label>Select users to add to the site</mat-label>
+      <mat-select id="user-select" multiple [formControl]="usersControl">
+        <mat-select-trigger>
+          @if (usersControl.value && usersControl.value.length > 0) {
+          {{ formatUserNames(usersControl.value) }}
+          } @else { Select site(s) }
+        </mat-select-trigger>
+        @for (s of filteredUsers(); track s.userId) {
+        <mat-option id="user-option-{{ s.userId }}" [value]="s">
+          <span>{{ s.displayName }}</span>
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="add-user-to-site-actions">
+    <button class="add-button" (click)="addUsersToSite()" mat-flat-button>
+      Confirm
+    </button>
+    <button class="cancel-button" (click)="closeDialog()" mat-flat-button>
+      Cancel
+    </button>
+  </div>
+</div>

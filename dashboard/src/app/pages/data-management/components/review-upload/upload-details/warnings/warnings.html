@@ -1,0 +1,34 @@
+<div class="items">
+  @for (item of validationWarnings(); track $index) {
+  <div
+    class="pill"
+    [class.success]="item.type === 'SUCCESS'"
+    [class.warning]="item.type === 'WARN'"
+    [class.error]="item.type === 'ERROR'"
+    [attr.aria-label]="item.message"
+    [id]="`validations-${item}`"
+  >
+    <div class="pill-content">
+      <span class="icon-wrap" aria-hidden="true">
+        @switch (item.type) { @case ('SUCCESS') {
+        <mat-icon class="material-symbols-outlined">check_circle</mat-icon>
+        } @case ('WARN') {
+        <mat-icon class="material-symbols-outlined filled-symbol"
+          >warning</mat-icon
+        >
+        } @case ('ERROR') {
+        <mat-icon class="material-symbols-outlined filled-symbol"
+          >warning</mat-icon
+        >
+        } }
+      </span>
+      <span class="label">{{ item.message }}</span>
+    </div>
+    @if (isNewSite()) {
+    <button mat-flat-button matButton="outlined" (click)="openAssignUsers()">
+      Assign users for alerts
+    </button>
+    }
+  </div>
+  }
+</div>

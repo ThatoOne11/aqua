@@ -1,0 +1,69 @@
+@use "sass:map";
+@use "@theme/theme-colors.scss" as theme;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 12px 0px;
+}
+
+.list-wrapper {
+  flex: 1;
+  overflow: hidden;
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 8px 0px 0px; //padding for the scrollbar
+  margin: 0px;
+  max-height: 411px; // matches the min height of the container
+  overflow-y: auto;
+}
+
+.results-list li {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 14px 0;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: map.get(theme.$neutral-palette, 80);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  margin: 12px 0 12px 0;
+}
+
+.parameter {
+  flex: 1;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.value {
+  width: 40px;
+  text-align: right;
+}
+
+.success {
+  color: map.get(theme.$pass-palette, 500);
+}
+
+.fail {
+  color: map.get(theme.$danger-palette, 500);
+}

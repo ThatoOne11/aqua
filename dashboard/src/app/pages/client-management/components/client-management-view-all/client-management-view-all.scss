@@ -1,0 +1,15 @@
+.sub-heading {
+  font-weight: 400;
+}
+.all-clients-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, max-content));
+  grid-gap: 1rem;
+  app-client-tile {
+    cursor: pointer;
+  }
+}
+.search-input {
+  width: 360px;
+  margin-right: 32px;
+}

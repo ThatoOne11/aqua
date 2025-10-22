@@ -1,0 +1,78 @@
+<div class="page">
+  <div class="content">
+    <h1 class="main-heading" id="user-management-main-heading">My Account</h1>
+
+    <div class="profile-card" id="user-management-profile-card">
+      <div class="avatar">
+        <mat-icon class="material-symbols-outlined filled-symbol"
+          >account_circle</mat-icon
+        >
+      </div>
+      <div class="details">
+        <div class="name" id="user-management-display-name">
+          {{ displayName }}
+        </div>
+        @if (email()) {
+        <div class="email" id="user-management-email">{{ email() }}</div>
+        }
+      </div>
+    </div>
+
+    <div class="mfa-card" id="user-management-mfa-card">
+      <div class="mfa-header">
+        <mat-icon
+          class="mfa-icon material-symbols-outlined filled-symbol"
+          color="primary"
+          >verified_user</mat-icon
+        >
+        <div class="mfa-title">Two‑Factor Authentication</div>
+        <div
+          class="mfa-status"
+          [class.enabled]="mfaEnabled()"
+          [class.disabled]="!mfaEnabled()"
+          id="user-management-mfa-status"
+        >
+          <mat-icon class="material-symbols-outlined filled-symbol">{{
+            mfaEnabled() ? "shield" : "shield_off"
+          }}</mat-icon>
+          <span>{{ mfaEnabled() ? "Enabled" : "Disabled" }}</span>
+        </div>
+      </div>
+      <div class="mfa-actions">
+        @if (!mfaEnabled()) {
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="enableMfa()"
+          id="user-management-enable-mfa-button"
+        >
+          <mat-icon class="material-symbols-outlined">qr_code_scanner</mat-icon>
+          Set up MFA
+        </button>
+        } @else {
+        <button
+          mat-stroked-button
+          color="warn"
+          (click)="disableMfa()"
+          [disabled]="working()"
+          id="user-management-disable-mfa-button"
+        >
+          <mat-icon class="material-symbols-outlined">hide_source</mat-icon>
+          Disable MFA
+        </button>
+        }
+      </div>
+    </div>
+
+    <button
+      mat-flat-button
+      color="primary"
+      class="logout-button"
+      (click)="logout()"
+      id="user-management-logout-button"
+    >
+      <mat-icon class="material-symbols-outlined">logout</mat-icon>
+      Logout
+    </button>
+  </div>
+</div>

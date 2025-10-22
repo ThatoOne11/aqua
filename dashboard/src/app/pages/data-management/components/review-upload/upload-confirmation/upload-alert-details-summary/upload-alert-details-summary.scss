@@ -1,0 +1,38 @@
+@use "sass:map";
+@use "@theme/theme-colors.scss" as theme;
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 20px;
+}
+.danger {
+  color: map.get(theme.$danger-palette, 500);
+}
+.row {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 2px 8px;
+  gap: 20px;
+}
+
+.selected-users {
+  display: flex;
+  gap: 12px;
+}
+
+.selected-user {
+  min-height: 32px;
+  border: 1px solid #6b6c75;
+  border-radius: 24px;
+  padding-left: 16px;
+  padding-right: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.comment {
+  color: #929090;
+  font-size: 18px;
+}

@@ -1,0 +1,17 @@
+.container {
+  padding: 24px;
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.add-user-to-site-actions {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 16px;
+  .cancel-button {
+    background-color: white;
+    color: black;
+    border: solid 1px black;
+  }
+}

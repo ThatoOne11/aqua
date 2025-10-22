@@ -1,0 +1,5 @@
+{
+  "tasks": {
+    "test:csv": "deno test --quiet --allow-none supabase/functions/csv-upload/tests"
+  }
+}

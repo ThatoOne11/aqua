@@ -1,0 +1,58 @@
+.page {
+  display: flex;
+  justify-content: center;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  max-width: 353px;
+  gap: 24px;
+  height: calc(100vh - 88px);
+}
+
+.logo-container {
+  width: 353px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+
+  .logo {
+    width: 176px;
+  }
+}
+.login-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.forgot-password {
+  color: #34363e;
+  padding-left: 16px;
+  cursor: pointer;
+}
+
+.continue-button {
+  margin-top: 24px;
+  width: 100%;
+}
+
+.legal-text {
+  font-size: 12px;
+  color: #666;
+  margin-top: 16px;
+
+  a {
+    color: #5d5858;
+    text-decoration: underline;
+  }
+}
+
+.status-message {
+  margin-top: 16px;
+  text-align: center;
+}

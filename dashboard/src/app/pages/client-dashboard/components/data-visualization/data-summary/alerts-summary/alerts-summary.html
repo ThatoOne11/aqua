@@ -1,0 +1,12 @@
+<h3 class="title">Alerts (Per Parameter)</h3>
+<div class="list-wrapper">
+  <ul class="results-list">
+    @for (r of results(); track r.parameter) {
+    <li>
+      <span class="parameter">{{ r.parameter }}</span>
+      <span class="value success">{{ r.passed }}</span>
+      <span class="value fail">{{ r.failed }}</span>
+    </li>
+    }
+  </ul>
+</div>

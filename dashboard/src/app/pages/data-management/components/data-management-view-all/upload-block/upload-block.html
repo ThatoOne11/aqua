@@ -1,0 +1,32 @@
+<div class="full-height">
+  <h2>Client Data Upload</h2>
+  <p>
+    Upload water sampling data with automatic validation and standardisation
+  </p>
+
+  <app-file-uploader
+    #fileUploader
+    (filesSelected)="handleFileUploaded($event)"
+  />
+
+  @if(shouldShowActionButtons()) {
+  <div class="flex gap-10 pt-20 flex-reverse">
+    <button
+      matButton="filled"
+      [disabled]="isLoading()"
+      (click)="upload()"
+      id="upload-csv-button"
+    >
+      Upload
+    </button>
+    <button
+      matButton="outlined"
+      (click)="cancelUpload(); fileUploader.clear()"
+      [disabled]="isLoading()"
+      id="cancel-upload-csv-button"
+    >
+      Cancel
+    </button>
+  </div>
+  }
+</div>

@@ -1,0 +1,12 @@
+.alert-container {
+  display: flex;
+  flex-direction: column;
+  .alert-details {
+    display: grid;
+    column-gap: 24px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .current-alert-container {
+    padding-top: 48px;
+  }
+}

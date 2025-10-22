@@ -1,0 +1,42 @@
+<div class="page-container" id="data-management-view-all-page">
+  <app-page-title
+    [title]="'Data Management'"
+    id="data-management-view-all-title"
+  ></app-page-title>
+
+  <div class="top-row" id="data-management-view-all-top-row">
+    <div class="container top-left" id="data-management-view-all-top-left">
+      <app-upload-block
+        (fileUploadUpdate)="setUploadedCoaId($event)"
+        (fileUploadErrorsEvent)="setValidationErrors($event)"
+        (fileUploadSuccessEvent)="handleSuccessfulUpload($event)"
+      />
+    </div>
+    @if(shouldShowValidationsBlock()) {
+    <div
+      class="container top-right flex-column"
+      id="data-management-view-all-top-right"
+    >
+      <app-data-validation-block
+        [coaId]="coaId()"
+        [validationMessages]="validationMessages()"
+      />
+      <div class="review-button-container">
+        <button
+          mat-flat-button
+          id="review-upload-button"
+          [routerLink]="['review', coaId()]"
+          [disabled]="!canReviewUpload()"
+        >
+          Review Upload
+        </button>
+      </div>
+    </div>
+    } @else {
+    <div class="top-right top-right-placeholder"></div>
+    }
+  </div>
+  <div class="container">
+    <app-import-history />
+  </div>
+</div>

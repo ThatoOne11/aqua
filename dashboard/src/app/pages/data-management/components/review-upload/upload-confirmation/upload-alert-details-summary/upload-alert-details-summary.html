@@ -1,0 +1,34 @@
+<h2>Upload Confirmation</h2>
+<p>Alerts sending to:</p>
+<div class="selected-users">
+  @for (user of currentSelectedUsers; track $index) {
+  <span class="selected-user" [matTooltip]="user.email">
+    {{ user.display_name }}
+  </span>
+  }@if(currentSelectedUsers.length == 0){
+  <i>No users selected</i>
+  }
+</div>
+<div class="alerts">
+  <p>Alerts for:</p>
+  @for (alert of alertsForDisplay; track alert.readingId) {
+  <div class="row">
+    <span class="icon-wrap danger" aria-hidden="true">
+      <mat-icon class="material-symbols-outlined">warning</mat-icon>
+    </span>
+    <span class="label"
+      >Alert: {{ alert.parameter }}: ({{ alert.site }}, {{ alert.location }},
+      {{ alert.area }}, {{ alert.outlet }})</span
+    >
+    @if(alert.note){
+    <mat-icon
+      class="comment material-symbols-outlined filled-symbol"
+      [matTooltip]="alert.note"
+      >comment</mat-icon
+    >
+    }
+  </div>
+  } @if(alertsForDisplay.length == 0){
+  <i>No alerts</i>
+  }
+</div>

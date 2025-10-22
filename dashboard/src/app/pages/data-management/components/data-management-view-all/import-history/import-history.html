@@ -1,0 +1,39 @@
+<div class="flex history-heading">
+  <div>
+    <h2>Import History</h2>
+    <p>Log of all data imports with timestamps, client and user details</p>
+  </div>
+  <div>
+    <mat-form-field appearance="outline" id="date-range-field">
+      <mat-label>Date Range</mat-label>
+      <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRangeForm">
+        <input
+          id="start-date-input"
+          matStartDate
+          formControlName="start"
+          placeholder="Start date"
+        />
+        <input matEndDate formControlName="end" placeholder="End date" />
+      </mat-date-range-input>
+      <mat-hint>DD/MM/YYYY - DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        id="date-picker-toggle"
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker
+        id="date-range-picker"
+        #picker
+      ></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+</div>
+<div class="import-table">
+  @if (filteredImportHistory()) {
+  <app-ag-grid
+    [columnDefinitions]="uploadHistoryColDefs"
+    [rowData]="filteredImportHistory()"
+  >
+  </app-ag-grid>
+  }
+</div>

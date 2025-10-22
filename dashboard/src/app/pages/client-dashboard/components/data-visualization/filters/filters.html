@@ -1,0 +1,219 @@
+<div class="container filter-container" id="filter-container">
+  <div class="filter-row">
+    <div class="date-range-filter-group" id="date-range-filter">
+      <mat-form-field appearance="outline" id="date-range-field">
+        <mat-label>Date Range</mat-label>
+        <mat-date-range-input
+          [rangePicker]="picker"
+          [formGroup]="dateRangeForm"
+        >
+          <input
+            id="start-date-input"
+            matStartDate
+            formControlName="start"
+            placeholder="Start date"
+          />
+          <input matEndDate formControlName="end" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-hint>DD/MM/YYYY - DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          id="date-picker-toggle"
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker
+          id="date-range-picker"
+          #picker
+        ></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+    <button
+      id="dashboard-guide-btn"
+      mat-flat-button
+      class="dashboard-guide"
+      (click)="dialogButtonAction()"
+    >
+      <mat-icon class="icon material-symbols-outlined filled-symbol"
+        >help</mat-icon
+      >
+      Dashboard Guide
+    </button>
+  </div>
+
+  <div class="filter-row">
+    <mat-form-field id="site-filter" class="filter-group" appearance="outline">
+      <mat-label>Site</mat-label>
+      <mat-select id="site-select" multiple [formControl]="sitesCtrl">
+        <mat-option>
+          <ngx-mat-select-search
+            id="site-search"
+            [formControl]="siteFilterCtrl"
+            placeholderLabel="Find site..."
+            noEntriesFoundLabel="No sites found"
+          ></ngx-mat-select-search>
+        </mat-option>
+        <mat-select-trigger>
+          @if (sitesCtrl.value && sitesCtrl.value.length > 0) {
+          {{ formatSiteNames(sitesCtrl.value) }}
+          } @else { Select site(s) }
+        </mat-select-trigger>
+        @for (s of filteredSites(); track s.id) {
+        <mat-option id="site-option-{{ s.id }}" [value]="s.id">
+          <div class="site-option-container">
+            <span class="option-name">{{ s.name }}</span>
+            <span
+              class="failure-badge"
+              [class.error-color]="s.failed > 0"
+              [class.success-color]="s.failed === 0"
+            >
+              {{ s.failed }}
+            </span>
+          </div>
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field id="floor-filter" class="filter-group" appearance="outline">
+      <mat-label>Floor</mat-label>
+      <mat-select id="floor-select" multiple [formControl]="floorsCtrl">
+        <mat-option>
+          <ngx-mat-select-search
+            id="floor-search"
+            [formControl]="floorFilterCtrl"
+            placeholderLabel="Find floor..."
+            noEntriesFoundLabel="No floors found"
+          ></ngx-mat-select-search>
+        </mat-option>
+        <mat-select-trigger>
+          @if (floorsCtrl.value && floorsCtrl.value.length > 0) {
+          {{ formatList(floorsCtrl.value) }}
+          } @else { Select floor(s) }
+        </mat-select-trigger>
+        @for (f of filteredFloors(); track f.name) {
+        <mat-option id="floor-option-{{ f.name }}" [value]="f.name">
+          <div class="site-option-container">
+            <span class="option-name">{{ f.name }}</span>
+            <span
+              class="failure-badge"
+              [class.error-color]="f.failed > 0"
+              [class.success-color]="f.failed === 0"
+            >
+              {{ f.failed }}
+            </span>
+          </div>
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="filter-group" appearance="outline">
+      <mat-label>Area</mat-label>
+      <mat-select id="area-select" multiple [formControl]="areasCtrl">
+        <mat-option>
+          <ngx-mat-select-search
+            id="area-search"
+            [formControl]="areaFilterCtrl"
+            placeholderLabel="Find area..."
+            noEntriesFoundLabel="No areas found"
+          ></ngx-mat-select-search>
+        </mat-option>
+        <mat-select-trigger>
+          @if (areasCtrl.value && areasCtrl.value.length > 0) {
+          {{ formatList(areasCtrl.value) }}
+          } @else { Select area(s) }
+        </mat-select-trigger>
+        @for (a of filteredAreas(); track a.name) {
+        <mat-option id="area-option-{{ a.name }}" [value]="a.name">
+          <div class="site-option-container">
+            <span class="option-name">{{ a.name }}</span>
+            <span
+              class="failure-badge"
+              [class.error-color]="a.failed > 0"
+              [class.success-color]="a.failed === 0"
+            >
+              {{ a.failed }}
+            </span>
+          </div>
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="filter-group" appearance="outline">
+      <mat-label>Location</mat-label>
+      <mat-select id="location-select" multiple [formControl]="locationsCtrl">
+        <mat-option>
+          <ngx-mat-select-search
+            id="location-search"
+            [formControl]="locationFilterCtrl"
+            placeholderLabel="Find location..."
+            noEntriesFoundLabel="No locations found"
+          ></ngx-mat-select-search>
+        </mat-option>
+        <mat-select-trigger>
+          @if (locationsCtrl.value && locationsCtrl.value.length > 0) {
+          {{ formatList(locationsCtrl.value) }}
+          } @else { Select location(s) }
+        </mat-select-trigger>
+        @for (l of filteredLocations(); track l.name) {
+        <mat-option id="location-option-{{ l.name }}" [value]="l.name">
+          <div class="site-option-container">
+            <span class="option-name">{{ l.name }}</span>
+            <span
+              class="failure-badge"
+              [class.error-color]="l.failed > 0"
+              [class.success-color]="l.failed === 0"
+            >
+              {{ l.failed }}
+            </span>
+          </div>
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="filter-group" appearance="outline">
+      <mat-label>Outlet</mat-label>
+      <mat-select id="outlet-select" multiple [formControl]="outletsCtrl">
+        <mat-option>
+          <ngx-mat-select-search
+            id="outlet-search"
+            [formControl]="outletFilterCtrl"
+            placeholderLabel="Find outlet..."
+            noEntriesFoundLabel="No outlets found"
+          ></ngx-mat-select-search>
+        </mat-option>
+        <mat-select-trigger>
+          @if (outletsCtrl.value && outletsCtrl.value.length > 0) {
+          {{ formatList(outletsCtrl.value) }}
+          } @else { Select outlet(s) }
+        </mat-select-trigger>
+        @for (o of filteredOutlets(); track o.name) {
+        <mat-option id="outlet-option-{{ o.name }}" [value]="o.name">
+          <div class="site-option-container">
+            <span class="option-name">{{ o.name }}</span>
+            <span
+              class="failure-badge"
+              [class.error-color]="o.failed > 0"
+              [class.success-color]="o.failed === 0"
+            >
+              {{ o.failed }}
+            </span>
+          </div>
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <span class="parameters-title" id="parameters-title">Parameters</span>
+
+  <mat-chip-listbox id="parameter-chips" multiple [formControl]="chipsCtrl">
+    @for (chip of chips(); track chip) {
+    <mat-chip-option id="parameter-chip-{{ chip }}" [value]="chip">
+      {{ chip }}
+    </mat-chip-option>
+    }
+  </mat-chip-listbox>
+</div>

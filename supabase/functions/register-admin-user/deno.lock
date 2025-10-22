@@ -1,0 +1,9 @@
+{
+  "version": "3",
+  "remote": {
+    "https://deno.land/std@0.218.2/async/delay.ts": "8e1d18fe8b28ff95885e2bc54eccec1713f57f756053576d8228e6ca110793ad",
+    "https://deno.land/std@0.218.2/http/server.ts": "6dce295abc169d0956ae00432441331b3425afad4d79e8b3475739be2f04d614",
+    "https://esm.sh/jwt-decode@4.0.0": "894ef5eb71557cf0d0975ec191d5f464ce42993b88784b2d1b76fa4e3772d04e",
+    "https://esm.sh/jwt-decode@4.0.0/denonext/jwt-decode.mjs": "28e66aac193162dfe94f01047badfa3a25c8627739f3bcef48dbca15e18ddbc8"
+  }
+}

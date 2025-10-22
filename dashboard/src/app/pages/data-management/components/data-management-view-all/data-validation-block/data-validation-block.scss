@@ -1,0 +1,28 @@
+@use "sass:map";
+@use "@theme/theme-colors.scss" as theme;
+
+.success {
+  background: map.get(theme.$success-palette, 500);
+}
+.warning {
+  background: map.get(theme.$warning-palette, 500);
+}
+.error {
+  background: map.get(theme.$danger-palette, 500);
+}
+
+.pill {
+  display: flex;
+  border-radius: 16px;
+  align-items: center;
+  min-height: 40px;
+  padding: 2px 8px;
+  gap: 20px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 20px;
+}

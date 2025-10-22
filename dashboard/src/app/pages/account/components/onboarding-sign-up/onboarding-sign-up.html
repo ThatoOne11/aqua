@@ -1,0 +1,35 @@
+<div class="page">
+  <div class="content">
+    <div class="logo-container" id="onboarding-sign-up-logo-container">
+      <mat-icon
+        class="logo"
+        svgIcon="logo"
+        id="onboarding-sign-up-logo-icon"
+      ></mat-icon>
+    </div>
+
+    @if (errorMessage()) {
+    <p class="error-text">{{ errorMessage() }}</p>
+    } @else {
+    <ng-container>
+      <mat-icon
+        class="check material-symbols-outlined"
+        id="onboarding-sign-up-check-icon"
+        >check_circle</mat-icon
+      >
+      <app-page-title
+        [title]="'Your email has been verified!'"
+        id="onboarding-sign-up-title"
+      ></app-page-title>
+      <button
+        class="reset-button"
+        mat-flat-button
+        (click)="ResetPassword()"
+        id="onboarding-sign-up-reset-button"
+      >
+        Reset password
+      </button>
+    </ng-container>
+    }
+  </div>
+</div>
