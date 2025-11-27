@@ -59,7 +59,14 @@ export class FilterOptionsService {
       feed_type,
       flush_type,
       unit,
-      result_type_id
+      result_type_id,
+      temperature,
+      site_name,
+      floor,
+      area,
+      location,
+      outlet,
+      comments
     `);
 
     // Dynamically apply all active filters to the query

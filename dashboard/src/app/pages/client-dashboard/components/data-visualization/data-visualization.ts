@@ -14,14 +14,17 @@ import {
   FilterOptionsResponse,
   FilterParams,
   DashboardDataResponse,
+  ReadingResultViewRow,
+  LineChartRow,
 } from '@client-dashboard/models/filters/filters.model';
 import { BarChartComponent } from './data-summary/bar-chart/bar-chart';
 import { AlertsSummaryComponent } from './data-summary/alerts-summary/alerts-summary';
 import { LoaderService } from '@core/services/loading.service';
 import { DashboardDataService } from '@client-dashboard/services/dashboard-data-service';
 import { ReadingResultsLineChartComponent } from './data-summary/line-graph/line-chart.component';
-import { LineChartRow } from '@client-dashboard/models/filters/filters.model';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ChartDownloadService } from '../../../../shared/services/chart-download.service';
 
 @Component({
   selector: 'app-data-visualization',
@@ -33,6 +36,7 @@ import { MatIconModule } from '@angular/material/icon';
     AlertsSummaryComponent,
     ReadingResultsLineChartComponent,
     MatIconModule,
+    MatButtonModule,
   ],
   templateUrl: './data-visualization.html',
   styleUrl: './data-visualization.scss',
@@ -46,12 +50,14 @@ export class DataVisualizationComponent implements OnInit {
   private readonly loaderService = inject(LoaderService);
   private readonly filterOptionsService = inject(FilterOptionsService);
   private readonly dashboardDataService = inject(DashboardDataService);
+  private readonly chartDownloadService = inject(ChartDownloadService);
 
   readonly options = signal<FilterOptionsResponse | null>(null);
   readonly dashboardData = signal<DashboardDataResponse | null>(null);
   readonly error = signal<string | null>(null);
   readonly initialFilterParams = signal<FilterParams | null>(null);
   readonly singleOutletSelected = signal(false);
+  readonly rawResults = signal<ReadingResultViewRow[] | null>(null);
 
   readonly loading = this.loaderService.loading;
 
@@ -76,6 +82,7 @@ export class DataVisualizationComponent implements OnInit {
   }
 
   async onFilterChange(params: FilterParams) {
+    this.initialFilterParams.set(params);
     this.singleOutletSelected.set((params.p_outlets?.length ?? 0) === 1);
     await this.loadData(params);
   }
@@ -108,12 +115,16 @@ export class DataVisualizationComponent implements OnInit {
     const rows = this.lineRows();
     if (!rows.length) return [];
 
-    // Lookup pretty names from RESULT TYPES (not parameter types)
+    // Lookup pretty names and order from RESULT TYPES
     const opt = this.options();
+    const resultTypes = opt?.result_types ?? [];
     const nameById = new Map(
-      (opt?.result_types ?? [])
+      resultTypes.filter((o) => !!o.id).map((o) => [o.id as string, o.name])
+    );
+    const orderById = new Map(
+      resultTypes
         .filter((o) => !!o.id)
-        .map((o) => [o.id as string, o.name])
+        .map((o) => [o.id as string, o.order as number])
     );
 
     // Group by result_type_id
@@ -125,18 +136,47 @@ export class DataVisualizationComponent implements OnInit {
       byResult.set(key, arr);
     }
 
-    // Build groups for the template
-    return Array.from(byResult.entries()).map(([id, rs]) => ({
-      id,
-      title:
-        nameById.get(id) ??
-        (id === 'unknown' ? 'Unspecified result' : `Result ${id}`),
-      rows: rs,
-    }));
+    // Build groups for the template, then sort
+    return Array.from(byResult.entries())
+      .map(([id, rs]) => ({
+        id,
+        title:
+          nameById.get(id) ??
+          (id === 'unknown' ? 'Unspecified result' : `Result ${id}`),
+        rows: rs,
+      }))
+      .sort((a, b) => {
+        const orderA = orderById.get(a.id) as number;
+        const orderB = orderById.get(b.id) as number;
+        return orderA - orderB;
+      });
   });
 
   // for *ngFor trackBy
   trackByParam = (_: number, g: { id: string }) => g.id;
+
+  getSiteName(siteId: string | null | undefined): string {
+    if (!siteId) return '';
+    const sites = this.options()?.sites ?? [];
+    return sites.find((s) => s.id === siteId)?.name ?? '';
+  }
+
+  downloadChart(chartGroup: { title: string }, element: HTMLElement): void {
+    const filters = this.initialFilterParams();
+    const site = this.getSiteName(filters?.p_site_ids?.[0]);
+    const location = filters?.p_locations?.[0] ?? '';
+    const outlet = filters?.p_outlets?.[0] ?? '';
+
+    const filename = [chartGroup.title, site, location, outlet]
+      .filter(Boolean) // Remove empty parts
+      .join('_')
+      .replace(/[^a-zA-Z0-9_-]/g, ''); // Sanitize filename
+
+    this.chartDownloadService.downloadElementAsImage(
+      element,
+      `${filename}.png`
+    );
+  }
 
   /**
    * Consolidated data loading and processing function.
@@ -150,6 +190,7 @@ export class DataVisualizationComponent implements OnInit {
         this.filterOptionsService.getFilterOptions(params),
         this.filterOptionsService.getRawResults(params),
       ]);
+      this.rawResults.set(rawResults);
 
       // Set the options for the filters component
       this.options.set(optionsResponse);
@@ -206,16 +247,17 @@ export class DataVisualizationComponent implements OnInit {
       p_result_type_ids: null,
     };
   }
-  private toLineChartRow(r: any): LineChartRow {
+  private toLineChartRow(r: ReadingResultViewRow): LineChartRow {
     // Be lenient with types/field names; fall back where sensible
     return {
-      sample_dt: r.sample_dt ?? r.coa_reading_date, // ISO
+      sample_dt: r.sample_dt,
       value: Number(r.value ?? 0),
       feed_type: r.feed_type ?? null,
       flush_type: r.flush_type ?? null,
       unit: r.unit ?? null,
       parameter_type_id: r.parameter_type_id ?? null,
       result_type_id: r.result_type_id ?? null,
+      temperature: r.temperature,
     };
   }
 }

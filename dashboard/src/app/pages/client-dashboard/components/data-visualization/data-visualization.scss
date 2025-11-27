@@ -90,3 +90,16 @@
   margin-top: 16px;
   font-size: 16px;
 }
+
+.chart-card {
+  @extend .container;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow
+  margin-bottom: 16px;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

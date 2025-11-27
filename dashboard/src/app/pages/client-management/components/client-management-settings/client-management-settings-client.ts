@@ -130,10 +130,12 @@ export class ClientManagementSettingClient implements OnInit {
       return;
     }
 
+    const existingClientUsers = this.client ? this.client.users : [];
+
     const validationResult =
       await this.userHelper.getValidationErrorsForAddingUserOnClient(
         this.currentUserRowData(),
-        this.client.users,
+        existingClientUsers,
         email
       );
     if (!validationResult.isValid) {

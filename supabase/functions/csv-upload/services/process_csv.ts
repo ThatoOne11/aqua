@@ -213,6 +213,7 @@ async function buildInserts(
   const readingResults: ReadingResultInsert[][] = rows.map((row) => {
     const inserts: ReadingResultInsert[] = [];
     const comments = (row["Comment"] ?? "").trim() || null;
+    const temperature = parseNumericFromCell(row["Temperature"] ?? "") || null;
     for (const rid of requiredResultTypeIds) {
       const fieldLower = m.resultTypeIdToFieldName.get(rid); // may be lowercased
       if (!fieldLower) continue;
@@ -228,6 +229,7 @@ async function buildInserts(
         reading_id: "",
         value: num,
         comments: comments,
+        temperature: temperature,
       });
     }
     return inserts;

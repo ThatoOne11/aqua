@@ -1,0 +1,10 @@
+@use "sass:map";
+@use "@theme/theme-colors.scss" as theme;
+
+@use "../../../../../../styles/variables.scss" as var;
+
+.mat-mdc-dialog-component-host {
+  display: block;
+  background: var.$background-gradient;
+  padding: 6px;
+}

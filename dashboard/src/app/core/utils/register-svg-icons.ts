@@ -6,12 +6,7 @@ export function registerCustomSvgIcons(
   sanitizer: DomSanitizer
 ): void {
   const assetsIconPath = 'assets/icons/';
-  const icons = [
-    {
-      name: 'logo',
-      path: assetsIconPath + 'aquaprotrack-logo.svg',
-    },
-  ];
+  const icons: Array<{ name: string; path: string }> = []; //Keeping this to possibly to change icon to svg in future
 
   for (const icon of icons) {
     iconRegistry.addSvgIcon(

@@ -83,6 +83,7 @@ export async function validateFile(
     "Area",
     "Location",
     "OutletType",
+    "Temperature",
   ] as const;
 
   const requiredHeadersSchema = z

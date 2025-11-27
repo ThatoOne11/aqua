@@ -32,5 +32,6 @@ export type ReadingResultInsert = {
   result_type_id: string;
   reading_id: string;
   value: number;
+  temperature: number | null;
   comments: string | null;
 };

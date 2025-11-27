@@ -2,12 +2,13 @@
   @if(showNavbar){
   <div class="header" id="navbar-header">
     <div class="header-item-container" id="navbar-logo-container">
-      <mat-icon
+      <img
         (click)="navigateTo(landingPageRoute)"
         class="logo"
-        svgIcon="logo"
+        src="assets/icons/Protrack_redraw__1_-removebg-preview.png"
+        alt="Aqua Protrack Logo"
         id="navbar-logo"
-      ></mat-icon>
+      />
     </div>
 
     @if(shouldShowNavOptions()) {

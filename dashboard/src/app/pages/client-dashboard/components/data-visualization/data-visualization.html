@@ -15,7 +15,11 @@
   } @else if (hasData()) {
   <div class="middle-row">
     <div class="container middle-left">
-      <app-bar-chart [monthlyData]="dashboardData()?.monthly ?? null" />
+      <app-bar-chart
+      [monthlyData]="dashboardData()?.monthly ?? null"
+      [clientName]="clientName()"
+      [rawResults]="rawResults()"
+    />
     </div>
     <div class="container middle-right">
       <app-alerts-summary [results]="dashboardData()?.parameters ?? null" />
@@ -29,18 +33,40 @@
 
   <div class="bottom-row">
     <div class="container bottom">
-      <section>
+      <section class="graph-section">
         @if (groupedCharts().length) { @for (g of groupedCharts(); track g.id) {
-        <h3 class="mb-2">{{ g.title }}</h3>
+        <div class="chart-card" #chartContainer>
+          <div class="chart-header">
+            <h3 class="chart-title">{{ g.title }}</h3>
+            <button mat-icon-button class="download-ignore" (click)="downloadChart(g, chartContainer)">
+              <mat-icon>download</mat-icon>
+            </button>
+          </div>
 
-        <app-reading-results-line-chart
-          [rows]="g.rows"
-          [showPoints]="true"
-          [beginAtZero]="true"
-        >
-        </app-reading-results-line-chart>
+          <app-reading-results-line-chart
+            [rows]="g.rows"
+            [showPoints]="true"
+            [beginAtZero]="true"
+          >
+          </app-reading-results-line-chart>
 
-        <div class="my-6"></div>
+          <div class="chart-footer">
+            @if (initialFilterParams(); as params) {
+            <p>
+              Client: {{ clientName() }}
+              @if (params.p_site_ids?.length) {
+                <span> | Site: {{ getSiteName(params.p_site_ids?.[0]) }}</span>
+              }
+              @if (params.p_locations?.length) {
+                <span> | Location: {{ params.p_locations?.[0] }}</span>
+              }
+              @if (params.p_outlets?.length) {
+                <span> | Outlet: {{ params.p_outlets?.[0] }}</span>
+              }
+            </p>
+            }
+          </div>
+        </div>
         } } @else {
         <div class="empty-container">
           <div class="icon-wrapper">

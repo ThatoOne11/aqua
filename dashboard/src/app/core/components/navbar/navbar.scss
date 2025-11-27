@@ -1,3 +1,7 @@
+@use "../../../styles/variables.scss" as var;
+@use "../../../../theme/theme-colors.scss" as theme;
+@use "sass:map";
+
 .navbar-container {
   display: flex;
   justify-content: space-between;
@@ -7,7 +11,7 @@
   height: 88px;
   position: sticky;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: var.$navbar-main-blue;
   border-radius: 20px;
   z-index: 999;
 }
@@ -26,10 +30,11 @@
     border-radius: 25px;
     font-size: 14px;
     cursor: pointer;
+    color: map.get(theme.$neutral-palette, 100); // white
 
     &.active {
-      background-color: #213367;
-      color: white;
+      background-color: map.get(theme.$neutral-palette, 100); // white
+      color: var.$navbar-main-blue;
     }
   }
 }
@@ -44,19 +49,28 @@
   align-items: center;
   padding-left: 24px;
   padding-right: 24px;
-  background-color: white;
-  border-radius: 20px;
   height: 100%;
+}
+
+#navbar-user-menu-button {
+  background-color: var.$navbar-profile-bg;
+  border-radius: 25px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .user-label {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: map.get(theme.$neutral-palette, 100); // white
   span {
     margin-right: 8px;
   }
   mat-icon {
     width: 24px;
+    color: map.get(theme.$neutral-palette, 100); // white
   }
 }

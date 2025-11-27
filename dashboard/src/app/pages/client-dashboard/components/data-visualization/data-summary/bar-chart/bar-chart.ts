@@ -3,11 +3,21 @@ import {
   ChangeDetectionStrategy,
   input,
   computed,
+  inject,
+  viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartOptions } from 'chart.js';
+import {
+  ChartConfiguration,
+  ChartOptions,
+  ActiveElement,
+  ChartEvent,
+} from 'chart.js';
 import { MonthlyDataPoint } from '@client-dashboard/models/data-summary/data-summary.model';
+import { MatDialog } from '@angular/material/dialog';
+import { BarChartModalComponent } from '../bar-chart-modal/bar-chart-modal';
+import { ReadingResultViewRow } from '@client-dashboard/models/filters/filters.model';
 
 @Component({
   selector: 'app-bar-chart',
@@ -19,6 +29,11 @@ import { MonthlyDataPoint } from '@client-dashboard/models/data-summary/data-sum
 })
 export class BarChartComponent {
   monthlyData = input.required<MonthlyDataPoint[] | null>();
+  clientName = input.required<string>();
+  rawResults = input<ReadingResultViewRow[] | null>();
+
+  private readonly dialog = inject(MatDialog);
+  chart = viewChild(BaseChartDirective);
 
   readonly barChartType: 'bar' = 'bar';
   readonly barChartOptions: ChartOptions<'bar'> = {
@@ -40,6 +55,9 @@ export class BarChartComponent {
           precision: 0,
         },
       },
+    },
+    onClick: (event: ChartEvent, activeElements: ActiveElement[]) => {
+      this.onChartClick(event, activeElements);
     },
   };
 
@@ -79,4 +97,40 @@ export class BarChartComponent {
       ],
     };
   });
+
+  onChartClick(event: ChartEvent, activeElements: ActiveElement[]): void {
+    const allRows = this.rawResults() ?? [];
+
+    const monthlyData = this.monthlyData();
+    if (!monthlyData || monthlyData.length === 0) return;
+
+    const sortedData = [...monthlyData].sort(
+      (a, b) => new Date(a.month).getTime() - new Date(b.month).getTime()
+    );
+
+    let filteredRows = allRows;
+
+    if (activeElements.length > 0) {
+      const { datasetIndex, index } = activeElements[0];
+      const isFail = datasetIndex === 1;
+      const clickedMonth = sortedData[index]?.month?.substring(0, 7);
+
+      filteredRows = allRows.filter(
+        (r) =>
+          (r.month_start ?? '').substring(0, 7) === clickedMonth &&
+          r.is_fail === isFail
+      );
+    }
+
+    this.dialog.open(BarChartModalComponent, {
+      panelClass: 'bar-chart-modal',
+      width: '1200px',
+      maxWidth: '1200px',
+      maxHeight: '2000px',
+      data: {
+        clientName: this.clientName(),
+        data: filteredRows,
+      },
+    });
+  }
 }

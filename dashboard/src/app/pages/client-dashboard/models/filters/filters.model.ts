@@ -18,6 +18,7 @@ export interface OptionWithStats {
   passed: number;
   failed: number;
   fail_pct: number | null;
+  order: number;
 }
 
 export interface FilterOptionsResponse {
@@ -55,6 +56,19 @@ export interface ReadingResultViewRow {
   parameter_type: string | null;
   parameter_type_id: string | null;
   reading_result_id: string | null;
+  temperature: number;
+  sample_dt: string;
+  value: number;
+  feed_type: string;
+  flush_type: string;
+  unit: string;
+  result_type_id: string;
+  site_name?: string;
+  floor?: string;
+  area?: string;
+  location?: string;
+  outlet?: string;
+  comments?: string;
 }
 
 export interface DashboardDataResponse {
@@ -84,4 +98,5 @@ export interface LineChartRow {
 
   parameter_type_id?: string | null;
   result_type_id?: string | null;
+  temperature: number;
 }

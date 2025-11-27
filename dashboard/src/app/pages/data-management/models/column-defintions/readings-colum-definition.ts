@@ -150,16 +150,17 @@ export function getReadingsColDefs(fieldPresence: FieldPresence): ColDef[] {
       hide: shouldHide('legionella'),
     },
     {
-      headerName: 'Pseudo Aeru',
-      field: 'pseudo_aeru',
+      headerName: 'Pseudomonas Aeruginosa',
+      field: 'pseudomonas_aeruginosa',
       editable: (params) => {
         return (
-          params.data?.pseudo_aeru != null && params.data.pseudo_aeru !== ''
+          params.data?.pseudomonas_aeruginosa != null &&
+          params.data.pseudomonas_aeruginosa !== ''
         );
       },
       singleClickEdit: true,
       minWidth: 150,
-      hide: shouldHide('pseudo_aeru'),
+      hide: shouldHide('pseudomonas_aeruginosa'),
     },
     {
       headerName: 'Pseudo Species',
